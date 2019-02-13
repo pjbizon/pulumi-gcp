@@ -65,6 +65,7 @@ export class BackendService extends pulumi.CustomResource {
         return new BackendService(name, <any>state, { ...opts, id: id });
     }
 
+    public readonly affinityCookieTtlSec: pulumi.Output<number | undefined>;
     /**
      * The list of backends that serve this BackendService. Structure is documented below.
      */
@@ -106,7 +107,7 @@ export class BackendService extends pulumi.CustomResource {
     /**
      * Specification for the Identity-Aware proxy. Disabled if not specified. Structure is documented below.
      */
-    public readonly iap: pulumi.Output<{ oauth2ClientId: string, oauth2ClientSecret: string } | undefined>;
+    public readonly iap: pulumi.Output<{ oauth2ClientId: string, oauth2ClientSecret: string, oauth2ClientSecretSha256: string } | undefined>;
     /**
      * The name of the backend service.
      */
@@ -159,6 +160,7 @@ export class BackendService extends pulumi.CustomResource {
         let inputs: pulumi.Inputs = {};
         if (opts && opts.id) {
             const state: BackendServiceState = argsOrState as BackendServiceState | undefined;
+            inputs["affinityCookieTtlSec"] = state ? state.affinityCookieTtlSec : undefined;
             inputs["backends"] = state ? state.backends : undefined;
             inputs["cdnPolicy"] = state ? state.cdnPolicy : undefined;
             inputs["connectionDrainingTimeoutSec"] = state ? state.connectionDrainingTimeoutSec : undefined;
@@ -181,6 +183,7 @@ export class BackendService extends pulumi.CustomResource {
             if (!args || args.healthChecks === undefined) {
                 throw new Error("Missing required property 'healthChecks'");
             }
+            inputs["affinityCookieTtlSec"] = args ? args.affinityCookieTtlSec : undefined;
             inputs["backends"] = args ? args.backends : undefined;
             inputs["cdnPolicy"] = args ? args.cdnPolicy : undefined;
             inputs["connectionDrainingTimeoutSec"] = args ? args.connectionDrainingTimeoutSec : undefined;
@@ -207,6 +210,7 @@ export class BackendService extends pulumi.CustomResource {
  * Input properties used for looking up and filtering BackendService resources.
  */
 export interface BackendServiceState {
+    readonly affinityCookieTtlSec?: pulumi.Input<number>;
     /**
      * The list of backends that serve this BackendService. Structure is documented below.
      */
@@ -248,7 +252,7 @@ export interface BackendServiceState {
     /**
      * Specification for the Identity-Aware proxy. Disabled if not specified. Structure is documented below.
      */
-    readonly iap?: pulumi.Input<{ oauth2ClientId: pulumi.Input<string>, oauth2ClientSecret: pulumi.Input<string> }>;
+    readonly iap?: pulumi.Input<{ oauth2ClientId: pulumi.Input<string>, oauth2ClientSecret: pulumi.Input<string>, oauth2ClientSecretSha256?: pulumi.Input<string> }>;
     /**
      * The name of the backend service.
      */
@@ -294,6 +298,7 @@ export interface BackendServiceState {
  * The set of arguments for constructing a BackendService resource.
  */
 export interface BackendServiceArgs {
+    readonly affinityCookieTtlSec?: pulumi.Input<number>;
     /**
      * The list of backends that serve this BackendService. Structure is documented below.
      */
@@ -331,7 +336,7 @@ export interface BackendServiceArgs {
     /**
      * Specification for the Identity-Aware proxy. Disabled if not specified. Structure is documented below.
      */
-    readonly iap?: pulumi.Input<{ oauth2ClientId: pulumi.Input<string>, oauth2ClientSecret: pulumi.Input<string> }>;
+    readonly iap?: pulumi.Input<{ oauth2ClientId: pulumi.Input<string>, oauth2ClientSecret: pulumi.Input<string>, oauth2ClientSecretSha256?: pulumi.Input<string> }>;
     /**
      * The name of the backend service.
      */

@@ -38,6 +38,7 @@ export class Service extends pulumi.CustomResource {
         return new Service(name, <any>state, { ...opts, id: id });
     }
 
+    public readonly disableDependentServices: pulumi.Output<boolean | undefined>;
     /**
      * If true, disable the service when the terraform resource is destroyed.  Defaults to true.  May be useful in the event that a project is long-lived but the infrastructure running in that project changes frequently.
      */
@@ -63,6 +64,7 @@ export class Service extends pulumi.CustomResource {
         let inputs: pulumi.Inputs = {};
         if (opts && opts.id) {
             const state: ServiceState = argsOrState as ServiceState | undefined;
+            inputs["disableDependentServices"] = state ? state.disableDependentServices : undefined;
             inputs["disableOnDestroy"] = state ? state.disableOnDestroy : undefined;
             inputs["project"] = state ? state.project : undefined;
             inputs["service"] = state ? state.service : undefined;
@@ -71,6 +73,7 @@ export class Service extends pulumi.CustomResource {
             if (!args || args.service === undefined) {
                 throw new Error("Missing required property 'service'");
             }
+            inputs["disableDependentServices"] = args ? args.disableDependentServices : undefined;
             inputs["disableOnDestroy"] = args ? args.disableOnDestroy : undefined;
             inputs["project"] = args ? args.project : undefined;
             inputs["service"] = args ? args.service : undefined;
@@ -83,6 +86,7 @@ export class Service extends pulumi.CustomResource {
  * Input properties used for looking up and filtering Service resources.
  */
 export interface ServiceState {
+    readonly disableDependentServices?: pulumi.Input<boolean>;
     /**
      * If true, disable the service when the terraform resource is destroyed.  Defaults to true.  May be useful in the event that a project is long-lived but the infrastructure running in that project changes frequently.
      */
@@ -101,6 +105,7 @@ export interface ServiceState {
  * The set of arguments for constructing a Service resource.
  */
 export interface ServiceArgs {
+    readonly disableDependentServices?: pulumi.Input<boolean>;
     /**
      * If true, disable the service when the terraform resource is destroyed.  Defaults to true.  May be useful in the event that a project is long-lived but the infrastructure running in that project changes frequently.
      */

@@ -37,7 +37,7 @@ class IAMCustomRole(pulumi.CustomResource):
     """
     A human-readable title for the role.
     """
-    def __init__(__self__, resource_name, opts=None, deleted=None, description=None, permissions=None, project=None, role_id=None, stage=None, title=None, __name__=None, __opts__=None):
+    def __init__(__self__, resource_name, opts=None, description=None, permissions=None, project=None, role_id=None, stage=None, title=None, __name__=None, __opts__=None):
         """
         Allows management of a customized Cloud IAM project role. For more information see
         [the official documentation](https://cloud.google.com/iam/docs/understanding-custom-roles)
@@ -53,7 +53,6 @@ class IAMCustomRole(pulumi.CustomResource):
         
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[bool] deleted
         :param pulumi.Input[str] description: A human-readable description for the role.
         :param pulumi.Input[list] permissions: The names of the permissions this role grants when bound in an IAM policy. At least one permission must be specified.
         :param pulumi.Input[str] project: The project that the service account will be created in.
@@ -79,8 +78,6 @@ class IAMCustomRole(pulumi.CustomResource):
 
         __props__ = dict()
 
-        __props__['deleted'] = deleted
-
         __props__['description'] = description
 
         if permissions is None:
@@ -98,6 +95,8 @@ class IAMCustomRole(pulumi.CustomResource):
         if title is None:
             raise TypeError('Missing required property title')
         __props__['title'] = title
+
+        __props__['deleted'] = None
 
         super(IAMCustomRole, __self__).__init__(
             'gcp:projects/iAMCustomRole:IAMCustomRole',

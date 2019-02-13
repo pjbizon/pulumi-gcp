@@ -64,12 +64,14 @@ export class Dataset extends pulumi.CustomResource {
      * The ID of the dataset containing this table.
      */
     public readonly datasetId: pulumi.Output<string>;
+    public readonly defaultPartitionExpirationMs: pulumi.Output<number | undefined>;
     /**
      * The default lifetime of all
      * tables in the dataset, in milliseconds. The minimum value is 3600000
      * milliseconds (one hour).
      */
     public readonly defaultTableExpirationMs: pulumi.Output<number | undefined>;
+    public readonly deleteContentsOnDestroy: pulumi.Output<boolean | undefined>;
     /**
      * A user-friendly description of the dataset.
      */
@@ -121,7 +123,9 @@ export class Dataset extends pulumi.CustomResource {
             inputs["accesses"] = state ? state.accesses : undefined;
             inputs["creationTime"] = state ? state.creationTime : undefined;
             inputs["datasetId"] = state ? state.datasetId : undefined;
+            inputs["defaultPartitionExpirationMs"] = state ? state.defaultPartitionExpirationMs : undefined;
             inputs["defaultTableExpirationMs"] = state ? state.defaultTableExpirationMs : undefined;
+            inputs["deleteContentsOnDestroy"] = state ? state.deleteContentsOnDestroy : undefined;
             inputs["description"] = state ? state.description : undefined;
             inputs["etag"] = state ? state.etag : undefined;
             inputs["friendlyName"] = state ? state.friendlyName : undefined;
@@ -137,7 +141,9 @@ export class Dataset extends pulumi.CustomResource {
             }
             inputs["accesses"] = args ? args.accesses : undefined;
             inputs["datasetId"] = args ? args.datasetId : undefined;
+            inputs["defaultPartitionExpirationMs"] = args ? args.defaultPartitionExpirationMs : undefined;
             inputs["defaultTableExpirationMs"] = args ? args.defaultTableExpirationMs : undefined;
+            inputs["deleteContentsOnDestroy"] = args ? args.deleteContentsOnDestroy : undefined;
             inputs["description"] = args ? args.description : undefined;
             inputs["friendlyName"] = args ? args.friendlyName : undefined;
             inputs["labels"] = args ? args.labels : undefined;
@@ -169,12 +175,14 @@ export interface DatasetState {
      * The ID of the dataset containing this table.
      */
     readonly datasetId?: pulumi.Input<string>;
+    readonly defaultPartitionExpirationMs?: pulumi.Input<number>;
     /**
      * The default lifetime of all
      * tables in the dataset, in milliseconds. The minimum value is 3600000
      * milliseconds (one hour).
      */
     readonly defaultTableExpirationMs?: pulumi.Input<number>;
+    readonly deleteContentsOnDestroy?: pulumi.Input<boolean>;
     /**
      * A user-friendly description of the dataset.
      */
@@ -225,12 +233,14 @@ export interface DatasetArgs {
      * The ID of the dataset containing this table.
      */
     readonly datasetId: pulumi.Input<string>;
+    readonly defaultPartitionExpirationMs?: pulumi.Input<number>;
     /**
      * The default lifetime of all
      * tables in the dataset, in milliseconds. The minimum value is 3600000
      * milliseconds (one hour).
      */
     readonly defaultTableExpirationMs?: pulumi.Input<number>;
+    readonly deleteContentsOnDestroy?: pulumi.Input<boolean>;
     /**
      * A user-friendly description of the dataset.
      */

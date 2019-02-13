@@ -9,13 +9,17 @@ import pulumi.runtime
 from .. import utilities, tables
 
 class InterconnectAttachment(pulumi.CustomResource):
+    candidate_subnets: pulumi.Output[list]
     cloud_router_ip_address: pulumi.Output[str]
     creation_timestamp: pulumi.Output[str]
     customer_router_ip_address: pulumi.Output[str]
     description: pulumi.Output[str]
+    edge_availability_domain: pulumi.Output[str]
     google_reference_id: pulumi.Output[str]
     interconnect: pulumi.Output[str]
     name: pulumi.Output[str]
+    pairing_key: pulumi.Output[str]
+    partner_asn: pulumi.Output[str]
     private_interconnect_info: pulumi.Output[dict]
     project: pulumi.Output[str]
     """
@@ -28,20 +32,27 @@ class InterconnectAttachment(pulumi.CustomResource):
     """
     The URI of the created resource.
     """
-    def __init__(__self__, resource_name, opts=None, description=None, interconnect=None, name=None, project=None, region=None, router=None, __name__=None, __opts__=None):
+    state: pulumi.Output[str]
+    type: pulumi.Output[str]
+    vlan_tag8021q: pulumi.Output[int]
+    def __init__(__self__, resource_name, opts=None, candidate_subnets=None, description=None, edge_availability_domain=None, interconnect=None, name=None, project=None, region=None, router=None, type=None, vlan_tag8021q=None, __name__=None, __opts__=None):
         """
         Represents an InterconnectAttachment (VLAN attachment) resource. For more
         information, see Creating VLAN Attachments.
         
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[list] candidate_subnets
         :param pulumi.Input[str] description
+        :param pulumi.Input[str] edge_availability_domain
         :param pulumi.Input[str] interconnect
         :param pulumi.Input[str] name
         :param pulumi.Input[str] project: The ID of the project in which the resource belongs.
                If it is not provided, the provider project is used.
         :param pulumi.Input[str] region
         :param pulumi.Input[str] router
+        :param pulumi.Input[str] type
+        :param pulumi.Input[int] vlan_tag8021q
         """
         if __name__ is not None:
             warnings.warn("explicit use of __name__ is deprecated", DeprecationWarning)
@@ -58,10 +69,12 @@ class InterconnectAttachment(pulumi.CustomResource):
 
         __props__ = dict()
 
+        __props__['candidate_subnets'] = candidate_subnets
+
         __props__['description'] = description
 
-        if interconnect is None:
-            raise TypeError('Missing required property interconnect')
+        __props__['edge_availability_domain'] = edge_availability_domain
+
         __props__['interconnect'] = interconnect
 
         __props__['name'] = name
@@ -74,12 +87,19 @@ class InterconnectAttachment(pulumi.CustomResource):
             raise TypeError('Missing required property router')
         __props__['router'] = router
 
+        __props__['type'] = type
+
+        __props__['vlan_tag8021q'] = vlan_tag8021q
+
         __props__['cloud_router_ip_address'] = None
         __props__['creation_timestamp'] = None
         __props__['customer_router_ip_address'] = None
         __props__['google_reference_id'] = None
+        __props__['pairing_key'] = None
+        __props__['partner_asn'] = None
         __props__['private_interconnect_info'] = None
         __props__['self_link'] = None
+        __props__['state'] = None
 
         super(InterconnectAttachment, __self__).__init__(
             'gcp:compute/interconnectAttachment:InterconnectAttachment',

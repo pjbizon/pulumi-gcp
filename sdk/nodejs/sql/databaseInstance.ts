@@ -80,7 +80,7 @@ export class DatabaseInstance extends pulumi.CustomResource {
      * when the resource is configured with a `count`.
      */
     public /*out*/ readonly firstIpAddress: pulumi.Output<string>;
-    public /*out*/ readonly ipAddresses: pulumi.Output<{ ipAddress: string, timeToRetire: string }[]>;
+    public /*out*/ readonly ipAddresses: pulumi.Output<{ ipAddress: string, timeToRetire: string, type: string }[]>;
     /**
      * The name of the instance that will act as
      * the master in the replication setup. Note, this requires the master to have
@@ -108,7 +108,7 @@ export class DatabaseInstance extends pulumi.CustomResource {
      * instances *and* for second-generation instances if the provider region is not supported with Cloud SQL.
      * If you choose not to provide the `region` argument for this resource, make sure you understand this.
      */
-    public readonly region: pulumi.Output<string | undefined>;
+    public readonly region: pulumi.Output<string>;
     /**
      * The configuration for replication. The
      * configuration is detailed below.
@@ -200,7 +200,7 @@ export interface DatabaseInstanceState {
      * when the resource is configured with a `count`.
      */
     readonly firstIpAddress?: pulumi.Input<string>;
-    readonly ipAddresses?: pulumi.Input<pulumi.Input<{ ipAddress?: pulumi.Input<string>, timeToRetire?: pulumi.Input<string> }>[]>;
+    readonly ipAddresses?: pulumi.Input<pulumi.Input<{ ipAddress?: pulumi.Input<string>, timeToRetire?: pulumi.Input<string>, type?: pulumi.Input<string> }>[]>;
     /**
      * The name of the instance that will act as
      * the master in the replication setup. Note, this requires the master to have

@@ -9,6 +9,7 @@ import pulumi.runtime
 from .. import utilities, tables
 
 class BackendService(pulumi.CustomResource):
+    affinity_cookie_ttl_sec: pulumi.Output[int]
     backends: pulumi.Output[list]
     """
     The list of backends that serve this BackendService. Structure is documented below.
@@ -90,7 +91,7 @@ class BackendService(pulumi.CustomResource):
     The number of secs to wait for a backend to respond
     to a request before considering the request failed. Defaults to `30`.
     """
-    def __init__(__self__, resource_name, opts=None, backends=None, cdn_policy=None, connection_draining_timeout_sec=None, custom_request_headers=None, description=None, enable_cdn=None, health_checks=None, iap=None, name=None, port_name=None, project=None, protocol=None, security_policy=None, session_affinity=None, timeout_sec=None, __name__=None, __opts__=None):
+    def __init__(__self__, resource_name, opts=None, affinity_cookie_ttl_sec=None, backends=None, cdn_policy=None, connection_draining_timeout_sec=None, custom_request_headers=None, description=None, enable_cdn=None, health_checks=None, iap=None, name=None, port_name=None, project=None, protocol=None, security_policy=None, session_affinity=None, timeout_sec=None, __name__=None, __opts__=None):
         """
         A Backend Service defines a group of virtual machines that will serve traffic for load balancing. For more information
         see [the official documentation](https://cloud.google.com/compute/docs/load-balancing/http/backend-service)
@@ -100,6 +101,7 @@ class BackendService(pulumi.CustomResource):
         
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[int] affinity_cookie_ttl_sec
         :param pulumi.Input[list] backends: The list of backends that serve this BackendService. Structure is documented below.
         :param pulumi.Input[dict] cdn_policy: Cloud CDN configuration for this BackendService. Structure is documented below.
         :param pulumi.Input[int] connection_draining_timeout_sec: Time for which instance will be drained (not accept new connections,
@@ -143,6 +145,8 @@ class BackendService(pulumi.CustomResource):
             raise TypeError('Expected resource options to be a ResourceOptions instance')
 
         __props__ = dict()
+
+        __props__['affinity_cookie_ttl_sec'] = affinity_cookie_ttl_sec
 
         __props__['backends'] = backends
 

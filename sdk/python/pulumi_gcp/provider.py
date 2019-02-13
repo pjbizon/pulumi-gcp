@@ -9,7 +9,7 @@ import pulumi.runtime
 from . import utilities, tables
 
 class Provider(pulumi.ProviderResource):
-    def __init__(__self__, resource_name, opts=None, credentials=None, project=None, region=None, zone=None, __name__=None, __opts__=None):
+    def __init__(__self__, resource_name, opts=None, access_token=None, credentials=None, project=None, region=None, scopes=None, zone=None, __name__=None, __opts__=None):
         """
         The provider type for the google package. By default, resources use package-wide configuration
         settings, however an explicit `Provider` instance may be created and passed during resource
@@ -18,9 +18,11 @@ class Provider(pulumi.ProviderResource):
         
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
+        :param pulumi.Input[str] access_token
         :param pulumi.Input[str] credentials
         :param pulumi.Input[str] project
         :param pulumi.Input[str] region
+        :param pulumi.Input[list] scopes
         :param pulumi.Input[str] zone
         """
         if __name__ is not None:
@@ -38,6 +40,8 @@ class Provider(pulumi.ProviderResource):
 
         __props__ = dict()
 
+        __props__['access_token'] = access_token
+
         if credentials is None:
             credentials = utilities.get_env('GOOGLE_CREDENTIALS', 'GOOGLE_CLOUD_KEYFILE_JSON', 'GCLOUD_KEYFILE_JSON')
         __props__['credentials'] = credentials
@@ -49,6 +53,8 @@ class Provider(pulumi.ProviderResource):
         if region is None:
             region = utilities.get_env('GOOGLE_REGION', 'GCLOUD_REGION', 'CLOUDSDK_COMPUTE_REGION')
         __props__['region'] = region
+
+        __props__['scopes'] = pulumi.Output.from_input(scopes).apply(json.dumps) if scopes is not None else None
 
         if zone is None:
             zone = utilities.get_env('GOOGLE_ZONE', 'GCLOUD_ZONE', 'CLOUDSDK_COMPUTE_ZONE')

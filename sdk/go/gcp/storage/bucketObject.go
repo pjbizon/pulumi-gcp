@@ -52,6 +52,8 @@ func NewBucketObject(ctx *pulumi.Context,
 	}
 	inputs["crc32c"] = nil
 	inputs["md5hash"] = nil
+	inputs["outputName"] = nil
+	inputs["selfLink"] = nil
 	s, err := ctx.RegisterResource("gcp:storage/bucketObject:BucketObject", name, true, inputs, opts...)
 	if err != nil {
 		return nil, err
@@ -76,6 +78,8 @@ func GetBucketObject(ctx *pulumi.Context,
 		inputs["detectMd5hash"] = state.DetectMd5hash
 		inputs["md5hash"] = state.Md5hash
 		inputs["name"] = state.Name
+		inputs["outputName"] = state.OutputName
+		inputs["selfLink"] = state.SelfLink
 		inputs["source"] = state.Source
 		inputs["storageClass"] = state.StorageClass
 	}
@@ -152,6 +156,14 @@ func (r *BucketObject) Name() *pulumi.StringOutput {
 	return (*pulumi.StringOutput)(r.s.State["name"])
 }
 
+func (r *BucketObject) OutputName() *pulumi.StringOutput {
+	return (*pulumi.StringOutput)(r.s.State["outputName"])
+}
+
+func (r *BucketObject) SelfLink() *pulumi.StringOutput {
+	return (*pulumi.StringOutput)(r.s.State["selfLink"])
+}
+
 // A path to the data you want to upload. Must be defined
 // if `content` is not.
 func (r *BucketObject) Source() *pulumi.StringOutput {
@@ -190,6 +202,8 @@ type BucketObjectState struct {
 	Md5hash interface{}
 	// The name of the object.
 	Name interface{}
+	OutputName interface{}
+	SelfLink interface{}
 	// A path to the data you want to upload. Must be defined
 	// if `content` is not.
 	Source interface{}

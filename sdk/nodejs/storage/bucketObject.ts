@@ -83,6 +83,8 @@ export class BucketObject extends pulumi.CustomResource {
      * The name of the object.
      */
     public readonly name: pulumi.Output<string>;
+    public /*out*/ readonly outputName: pulumi.Output<string>;
+    public /*out*/ readonly selfLink: pulumi.Output<string>;
     /**
      * A path to the data you want to upload. Must be defined
      * if `content` is not.
@@ -118,6 +120,8 @@ export class BucketObject extends pulumi.CustomResource {
             inputs["detectMd5hash"] = state ? state.detectMd5hash : undefined;
             inputs["md5hash"] = state ? state.md5hash : undefined;
             inputs["name"] = state ? state.name : undefined;
+            inputs["outputName"] = state ? state.outputName : undefined;
+            inputs["selfLink"] = state ? state.selfLink : undefined;
             inputs["source"] = state ? state.source : undefined;
             inputs["storageClass"] = state ? state.storageClass : undefined;
         } else {
@@ -138,6 +142,8 @@ export class BucketObject extends pulumi.CustomResource {
             inputs["storageClass"] = args ? args.storageClass : undefined;
             inputs["crc32c"] = undefined /*out*/;
             inputs["md5hash"] = undefined /*out*/;
+            inputs["outputName"] = undefined /*out*/;
+            inputs["selfLink"] = undefined /*out*/;
         }
         super("gcp:storage/bucketObject:BucketObject", name, inputs, opts);
     }
@@ -190,6 +196,8 @@ export interface BucketObjectState {
      * The name of the object.
      */
     readonly name?: pulumi.Input<string>;
+    readonly outputName?: pulumi.Input<string>;
+    readonly selfLink?: pulumi.Input<string>;
     /**
      * A path to the data you want to upload. Must be defined
      * if `content` is not.
