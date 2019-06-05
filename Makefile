@@ -71,12 +71,12 @@ test_all::
 .PHONY: publish_tgz
 publish_tgz:
 	$(call STEP_MESSAGE)
-	./scripts/publish_tgz.sh
+#	./scripts/publish_tgz.sh
 
 .PHONY: publish_packages
 publish_packages:
 	$(call STEP_MESSAGE)
-	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
+#	$$(go env GOPATH)/src/github.com/pulumi/scripts/ci/publish-tfgen-package .
 
 .PHONY: check_clean_worktree
 check_clean_worktree:
