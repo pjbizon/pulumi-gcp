@@ -87,9 +87,9 @@ class DatabaseInstance(pulumi.CustomResource):
         Creates a new Google SQL Database Instance. For more information, see the [official documentation](https://cloud.google.com/sql/),
         or the [JSON API](https://cloud.google.com/sql/docs/admin-api/v1beta4/instances).
         
-        > **NOTE on `google_sql_database_instance`:** - Second-generation instances include a
+        > **NOTE on `sql.DatabaseInstance`:** - Second-generation instances include a
         default 'root'@'%' user with no password. This user will be deleted by this provider on
-        instance creation. You should use `google_sql_user` to define a custom user with
+        instance creation. You should use `sql.User` to define a custom user with
         a restricted host and strong password.
         
         :param str resource_name: The name of the resource.
@@ -162,6 +162,10 @@ class DatabaseInstance(pulumi.CustomResource):
         __props__['server_ca_cert'] = None
         __props__['service_account_email_address'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(DatabaseInstance, __self__).__init__(
             'gcp:sql/databaseInstance:DatabaseInstance',
             resource_name,

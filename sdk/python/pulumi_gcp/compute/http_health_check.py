@@ -34,8 +34,8 @@ class HttpHealthCheck(pulumi.CustomResource):
         individual VMs should be checked for health, via HTTP.
         
         
-        > **Note:** google_compute_http_health_check is a legacy health check.
-        The newer [google_compute_health_check](https://www.terraform.io/docs/providers/google/r/compute_health_check.html)
+        > **Note:** compute.HttpHealthCheck is a legacy health check.
+        The newer [compute.HealthCheck](https://www.terraform.io/docs/providers/google/r/compute_health_check.html)
         should be preferred for all uses except
         [Network Load Balancers](https://cloud.google.com/compute/docs/load-balancing/network/)
         which still require the legacy version.
@@ -92,6 +92,10 @@ class HttpHealthCheck(pulumi.CustomResource):
         __props__['creation_timestamp'] = None
         __props__['self_link'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(HttpHealthCheck, __self__).__init__(
             'gcp:compute/httpHealthCheck:HttpHealthCheck',
             resource_name,

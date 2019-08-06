@@ -24,7 +24,7 @@ class DicomStoreIamBinding(pulumi.CustomResource):
     role: pulumi.Output[str]
     """
     The role that should be applied. Only one
-    `google_healthcare_dicom_store_iam_binding` can be used per role. Note that custom roles must be of the format
+    `healthcare.DicomStoreIamBinding` can be used per role. Note that custom roles must be of the format
     `[projects|organizations]/{parent-name}/roles/{role-name}`.
     """
     def __init__(__self__, resource_name, opts=None, dicom_store_id=None, members=None, role=None, __name__=None, __opts__=None):
@@ -38,7 +38,7 @@ class DicomStoreIamBinding(pulumi.CustomResource):
                `{location_name}/{dataset_name}/{dicom_store_name}`. In the second form, the provider's
                project setting will be used as a fallback.
         :param pulumi.Input[str] role: The role that should be applied. Only one
-               `google_healthcare_dicom_store_iam_binding` can be used per role. Note that custom roles must be of the format
+               `healthcare.DicomStoreIamBinding` can be used per role. Note that custom roles must be of the format
                `[projects|organizations]/{parent-name}/roles/{role-name}`.
 
         > This content is derived from https://github.com/terraform-providers/terraform-provider-google/blob/master/website/docs/r/healthcare_dicom_store_iam_binding.html.markdown.
@@ -72,6 +72,10 @@ class DicomStoreIamBinding(pulumi.CustomResource):
 
         __props__['etag'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(DicomStoreIamBinding, __self__).__init__(
             'gcp:healthcare/dicomStoreIamBinding:DicomStoreIamBinding',
             resource_name,

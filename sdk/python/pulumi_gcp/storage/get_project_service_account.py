@@ -38,7 +38,7 @@ async def get_project_service_account(project=None,user_project=None,opts=None):
     Get the email address of a project's unique Google Cloud Storage service account.
     
     Each Google Cloud project has a unique service account for use with Google Cloud Storage. Only this
-    special service account can be used to set up `google_storage_notification` resources.
+    special service account can be used to set up `storage.Notification` resources.
     
     For more information see
     [the API reference](https://cloud.google.com/storage/docs/json_api/v1/projects/serviceAccount).
@@ -49,6 +49,10 @@ async def get_project_service_account(project=None,user_project=None,opts=None):
 
     __args__['project'] = project
     __args__['userProject'] = user_project
+    if opts is None:
+        opts = pulumi.ResourceOptions()
+    if opts.version is None:
+        opts.version = utilities.get_version()
     __ret__ = await pulumi.runtime.invoke('gcp:storage/getProjectServiceAccount:getProjectServiceAccount', __args__, opts=opts)
 
     return GetProjectServiceAccountResult(

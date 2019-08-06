@@ -31,7 +31,7 @@ class AccountIamBinding(pulumi.CustomResource):
         an existing Google Cloud Platform Billing Account.
         
         > **Note:** This resource __must not__ be used in conjunction with
-           `google_billing_account_iam_member` for the __same role__ or they will fight over
+           `billing.AccountIamMember` for the __same role__ or they will fight over
            what your policy should be.
         
         > **Note:** On create, this resource will overwrite members of any existing roles.
@@ -75,6 +75,10 @@ class AccountIamBinding(pulumi.CustomResource):
 
         __props__['etag'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(AccountIamBinding, __self__).__init__(
             'gcp:billing/accountIamBinding:AccountIamBinding',
             resource_name,

@@ -25,7 +25,7 @@ class ProjectMetadataItem(pulumi.CustomResource):
     def __init__(__self__, resource_name, opts=None, key=None, project=None, value=None, __name__=None, __opts__=None):
         """
         Manages a single key/value pair on metadata common to all instances for
-        a project in GCE. Using `google_compute_project_metadata_item` lets you
+        a project in GCE. Using `compute.ProjectMetadataItem` lets you
         manage a single key/value setting with this provider rather than the entire
         project metadata map.
         
@@ -63,6 +63,10 @@ class ProjectMetadataItem(pulumi.CustomResource):
             raise TypeError("Missing required property 'value'")
         __props__['value'] = value
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(ProjectMetadataItem, __self__).__init__(
             'gcp:compute/projectMetadataItem:ProjectMetadataItem',
             resource_name,

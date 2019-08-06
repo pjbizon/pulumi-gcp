@@ -32,7 +32,7 @@ class DefaultObjectACL(pulumi.CustomResource):
         and 
         [API](https://cloud.google.com/storage/docs/json_api/v1/defaultObjectAccessControls).
         
-        > Want fine-grained control over default object ACLs? Use `google_storage_default_object_access_control`
+        > Want fine-grained control over default object ACLs? Use `storage.DefaultObjectAccessControl`
         to control individual role entity pairs.
         
         :param str resource_name: The name of the resource.
@@ -65,6 +65,10 @@ class DefaultObjectACL(pulumi.CustomResource):
 
         __props__['role_entities'] = role_entities
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(DefaultObjectACL, __self__).__init__(
             'gcp:storage/defaultObjectACL:DefaultObjectACL',
             resource_name,

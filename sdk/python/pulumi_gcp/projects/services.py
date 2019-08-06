@@ -39,7 +39,7 @@ class Services(pulumi.CustomResource):
         > **Note:** This resource attempts to be the authoritative source on *all* enabled APIs, which often
         	leads to conflicts when certain actions enable other APIs. If you do not need to ensure that
         	*exclusively* a particular set of APIs are enabled, you should most likely use the
-        	google_project_service resource, one resource per API.
+        	projects.Service resource, one resource per API.
         
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -78,6 +78,10 @@ class Services(pulumi.CustomResource):
             raise TypeError("Missing required property 'services'")
         __props__['services'] = services
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(Services, __self__).__init__(
             'gcp:projects/services:Services',
             resource_name,

@@ -32,7 +32,7 @@ class IAMMember(pulumi.CustomResource):
         the IAM policy for an existing Google Cloud Platform Organization.
         
         > **Note:** This resource __must not__ be used in conjunction with
-           `google_organization_iam_binding` for the __same role__ or they will fight over
+           `organizations.IAMBinding` for the __same role__ or they will fight over
            what your policy should be.
         
         :param str resource_name: The name of the resource.
@@ -73,6 +73,10 @@ class IAMMember(pulumi.CustomResource):
 
         __props__['etag'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(IAMMember, __self__).__init__(
             'gcp:organizations/iAMMember:IAMMember',
             resource_name,

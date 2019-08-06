@@ -43,7 +43,7 @@ class Folder(pulumi.CustomResource):
         
         Folders created live inside an Organization. See the [Organization documentation](https://cloud.google.com/resource-manager/docs/quickstarts) for more details.
         
-        The service account used to run this provider when creating a `google_folder`
+        The service account used to run this provider when creating a `organizations.Folder`
         resource must have `roles/resourcemanager.folderCreator`. See the
         [Access Control for Folders Using IAM](https://cloud.google.com/resource-manager/docs/access-control-folders)
         doc for more information.
@@ -84,6 +84,10 @@ class Folder(pulumi.CustomResource):
         __props__['lifecycle_state'] = None
         __props__['name'] = None
 
+        if opts is None:
+            opts = pulumi.ResourceOptions()
+        if opts.version is None:
+            opts.version = utilities.get_version()
         super(Folder, __self__).__init__(
             'gcp:organizations/folder:Folder',
             resource_name,
