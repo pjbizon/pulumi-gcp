@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputApi from "../types/input";
+import * as outputApi from "../types/output";
 import * as utilities from "../utilities";
 
 /**
@@ -59,9 +61,10 @@ import * as utilities from "../utilities";
  *     protocol: "HTTP",
  *     timeoutSec: 10,
  * });
- * const backendKey = new gcp.compute.BackendServiceSignedUrlKey("backendKey", {
+ * const backendKey = new gcp.ComputeBackendServiceSignedUrlKey("backendKey", {
  *     backendService: exampleBackend.name,
  *     keyValue: "pPsVemX8GM46QVeezid6Rw==",
+ *     name: "test-key",
  * });
  * ```
  *

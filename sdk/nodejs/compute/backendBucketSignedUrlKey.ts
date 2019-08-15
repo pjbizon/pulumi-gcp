@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputApi from "../types/input";
+import * as outputApi from "../types/output";
 import * as utilities from "../utilities";
 
 /**
@@ -34,9 +36,10 @@ import * as utilities from "../utilities";
  *     description: "Contains beautiful images",
  *     enableCdn: true,
  * });
- * const backendKey = new gcp.compute.BackendBucketSignedUrlKey("backendKey", {
+ * const backendKey = new gcp.ComputeBackendBucketSignedUrlKey("backendKey", {
  *     backendBucket: testBackend.name,
  *     keyValue: "pPsVemX8GM46QVeezid6Rw==",
+ *     name: "test-key",
  * });
  * ```
  *

@@ -2,6 +2,8 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
+import * as inputApi from "../types/input";
+import * as outputApi from "../types/output";
 import * as utilities from "../utilities";
 
 /**
@@ -27,7 +29,7 @@ import * as utilities from "../utilities";
  *         role: "roles/editor",
  *     }],
  * }));
- * const editor = new gcp.bigtable.InstanceIamPolicy("editor", {
+ * const editor = new gcp.BigtableInstanceIamPolicy("editor", {
  *     instance: "your-bigtable-instance",
  *     policyData: admin.policyData,
  *     project: "your-project",
@@ -40,7 +42,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as gcp from "@pulumi/gcp";
  * 
- * const editor = new gcp.bigtable.InstanceIamBinding("editor", {
+ * const editor = new gcp.BigtableInstanceIamBinding("editor", {
  *     instance: "your-bigtable-instance",
  *     members: ["user:jane@example.com"],
  *     role: "roles/editor",
@@ -53,7 +55,7 @@ import * as utilities from "../utilities";
  * import * as pulumi from "@pulumi/pulumi";
  * import * as gcp from "@pulumi/gcp";
  * 
- * const editor = new gcp.bigtable.InstanceIamMember("editor", {
+ * const editor = new gcp.BigtableInstanceIamMember("editor", {
  *     instance: "your-bigtable-instance",
  *     member: "user:jane@example.com",
  *     role: "roles/editor",
