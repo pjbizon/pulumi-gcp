@@ -843,7 +843,21 @@ func Provider() tfbridge.ProviderInfo {
 			},
 
 			// Cloud IoT Core resources
-			"google_cloudiot_registry": {Tok: gcpResource(gcpKMS, "Registry")},
+			"google_cloudiot_registry": {
+				Tok: gcpResource(gcpKMS, "Registry"),
+				Fields: map[string]*tfbridge.SchemaInfo{
+					// This property's nested type name conflicts with the nested type of the existing (now deprecated)
+					// `event_notification_config` property (singular, a TypeMap). A conflict occurs because the new
+					// `event_notification_configs` property (plural, a TypeList) is a TypeList, which we singularize.
+					// To avoid the conflict, we override the nested type name for the new property, appending an "Item"
+					// suffix.
+					"event_notification_configs": {
+						Elem: &tfbridge.SchemaInfo{
+							NestedType: "RegistryEventNotificationConfigItem",
+						},
+					},
+				},
+			},
 
 			// Cloud IAP Resources
 			"google_iap_tunnel_instance_iam_binding": {
